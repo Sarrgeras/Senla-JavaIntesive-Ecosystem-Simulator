@@ -1,11 +1,13 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import controller.EcosystemController;
+import model.Ecosystem;
+import view.EcosystemView;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Ecosystem ecosystem = new Ecosystem();
+        EcosystemView view = new EcosystemView();
+        EcosystemController controller = new EcosystemController(ecosystem, view);
 
-        for (int i = 1; i <= 5; i++){
+        controller.runSimulation(10);
     }
 }
