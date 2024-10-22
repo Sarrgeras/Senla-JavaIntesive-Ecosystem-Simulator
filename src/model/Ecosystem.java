@@ -21,5 +21,15 @@ public class Ecosystem {
                 }
             }
         }
+        convertEnergyToPopulation();
+    }
+
+    private void convertEnergyToPopulation() {
+        for (Species species : speciesList) {
+            if (species.energy > 50) {
+                species.changePopulation(1);
+                species.changeEnergy(-30);
+            }
+        }
     }
 }
