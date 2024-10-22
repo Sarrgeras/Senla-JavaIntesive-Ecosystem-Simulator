@@ -1,9 +1,9 @@
 package model;
 
 public abstract class Species {
-    private String name;
-    private int population;
-    private int energy;
+    protected String name;
+    protected int population;
+    protected int energy;
 
     public Species(String name, int population, int energy) {
         this.name = name;
@@ -19,13 +19,17 @@ public abstract class Species {
         return population;
     }
 
+    public void changePopulation(int amount) {
+        this.population = Math.max(0, this.population + amount);
+    }
+
     public int getEnergy() {
         return energy;
     }
 
-    public void changePopulation(int delta) {
-        this.population += delta;
+    public void changeEnergy(int amount) {
+        this.energy += amount;
     }
 
-    public abstract void consume(Species food);
+    public abstract void consume(Species prey);
 }
