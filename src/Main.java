@@ -1,10 +1,13 @@
 import controller.EcosystemController;
+import controller.MenuController;
 import model.*;
 import view.EcosystemView;
+import view.MenuView;
+
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         List<Species> speciesList = new ArrayList<>();
         speciesList.add(new Plant(100));
         speciesList.add(new Herbivore(20, 20));
@@ -17,6 +20,13 @@ public class Main {
 
         // Запуск симуляции на 10 дней
         controller.simulate(10);
+    }*/
+
+    public static void main(String[] args) {
+        MenuView menuView = new MenuView();
+        MenuController menuController = new MenuController(menuView);
+
+        menuController.start();
     }
 }
 
