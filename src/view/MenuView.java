@@ -3,6 +3,8 @@ package view;
 import model.Ecosystem;
 import model.Species;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -50,6 +52,11 @@ public class MenuView{
         return scanner.nextInt();
     }
 
+    public int getEcosystemDays(){
+        System.out.println("Введите количествой дней симуляции: ");
+        return scanner.nextInt();
+    }
+
     public void showEcosystemClearedMessage() {
         System.out.println("Текущая симуляция очищена.");
     }
@@ -62,20 +69,23 @@ public class MenuView{
         System.out.println("Неверный выбор. Пожалуйста, выберите правильный пункт меню.");
     }
 
-    public void showEcosystemState(Ecosystem ecosystem) {
-        System.out.println("Статистика экосистемы");
-        List<Species> speciesList = ecosystem.getSpeciesList();
-
-        if(speciesList.isEmpty()){
-            System.out.println("Экосистема пустая");
-        }
-        else{
-            for(Species species : speciesList){
-                System.out.println("Вид: " + species.getName() +
-                        ", Популяция: " + species.getPopulation() +
-                        ", Энергия: " + species.getEnergy());
-            }
+    public void displayState(int day, List<Species> speciesList) {
+        System.out.println("День " + day + ":");
+        for (Species species : speciesList) {
+            System.out.println(species.getName() + ": " + species.getPopulation() + " особей, энергия: " + species.getEnergy());
         }
         System.out.println("-------------------------");
+    }
+
+    public void logState(int day, List<Species> speciesList) {
+        try (FileWriter writer = new FileWriter("ecosystem_log.txt", true)) {
+            writer.write("День " + day + ":\n");
+            for (Species species : speciesList) {
+                writer.write(species.getName() + ": " + species.getPopulation() + " особей, энергия: " + species.getEnergy() + "\n");
+            }
+            writer.write("-------------------------\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

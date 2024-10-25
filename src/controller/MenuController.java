@@ -8,10 +8,12 @@ import java.util.*;
 public class MenuController {
     private Ecosystem ecosystem;
     private MenuView menuView;
+    private int day;
 
     public MenuController(MenuView menuView) {
         this.menuView = menuView;
         this.ecosystem = new Ecosystem(new ArrayList<>());
+        this.day = 1;
     }
 
     public void start(){
@@ -107,8 +109,12 @@ public class MenuController {
         if (ecosystem.getSpeciesList().isEmpty()) {
             System.out.println("Экосистема пуста. Сначала создайте новую экосистему.");
         } else {
-            ecosystem.simulateDay();
-            menuView.showEcosystemState(ecosystem);
+            int days = menuView.getEcosystemDays();
+            for (int i = 0; i < days; i++, day++) {
+                ecosystem.simulateDay();
+                menuView.displayState(day, ecosystem.getSpeciesList());
+                menuView.logState(day, ecosystem.getSpeciesList());
+            }
         }
     }
 

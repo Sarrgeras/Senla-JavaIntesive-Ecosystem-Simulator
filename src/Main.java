@@ -1,10 +1,5 @@
-import controller.EcosystemController;
 import controller.MenuController;
-import model.*;
-import view.EcosystemView;
 import view.MenuView;
-
-import java.util.*;
 
 public class Main {
     /*public static void main(String[] args) {
