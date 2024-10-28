@@ -1,27 +1,54 @@
 package model;
 
+import java.util.Random;
+
 public class Climate {
-    private int temperature;
-    private int rainfall;
+    private String currentCondition;
+    private static final String[] CONDITIONS = {"Благоприятный климат",
+            "Засушливый климат", "Климат высокой влажности"};
+    private Random random = new Random();
 
-    public Climate(int initialTemperature, int initialRainfall) {
-        this.temperature = initialTemperature;
-        this.rainfall = initialRainfall;
+    public Climate() {
+        this.currentCondition = "Благоприятный климат";
     }
 
-    public int getTemperature() {
-        return temperature;
+    public void updateClimate() {
+        int conditionIndex = random.nextInt(CONDITIONS.length);
+        currentCondition = CONDITIONS[conditionIndex];
+        System.out.println("Климатические условия изменились на: " + currentCondition);
     }
 
-    public int getRainfall() {
-        return rainfall;
+    public void affectEcosystem(Ecosystem ecosystem) {
+        switch (currentCondition) {
+            case "Засушливый климат":
+                for (Species species : ecosystem.getSpeciesList()) {
+                    if (species instanceof Plant) {
+                        int decrease = Math.min(species.getPopulation(), 20);
+                        species.changePopulation(-decrease);
+                    }
+                }
+                break;
+            case "Климат высокой влажности":
+                for (Species species : ecosystem.getSpeciesList()) {
+                    if (species instanceof Carnivore || species instanceof Omnivore) {
+                        species.setCanFindFood(false);
+                        System.out.println(species.getName() + " не может найти еду из-за высокой влажности.");
+                    }
+                    if (species instanceof Plant) {
+                        int increase = Math.min(species.getPopulation(), 10);
+                        species.changePopulation(increase);
+                    }
+                }
+                break;
+            default:
+                for (Species species : ecosystem.getSpeciesList()) {
+                    species.setCanFindFood(true);
+                }
+                break;
+        }
     }
 
-    public void changeClimate() {
-        this.temperature += (int) (Math.random() * 11) - 5;
-        this.rainfall += (int) (Math.random() * 21) - 10;
-
-        this.temperature = Math.max(-30, Math.min(this.temperature, 50));
-        this.rainfall = Math.max(0, this.rainfall);
+    public String getCurrentCondition() {
+        return currentCondition;
     }
 }

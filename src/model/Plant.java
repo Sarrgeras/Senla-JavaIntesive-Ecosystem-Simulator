@@ -1,8 +1,8 @@
 package model;
 
 public class Plant extends Species {
-    public Plant(int population) {
-        super("Plant", population, 0);
+    public Plant(String name, int population) {
+        super(name, population, 0);
     }
 
     @Override

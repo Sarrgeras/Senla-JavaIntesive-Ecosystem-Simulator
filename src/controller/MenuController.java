@@ -8,11 +8,13 @@ import java.util.*;
 public class MenuController {
     private Ecosystem ecosystem;
     private MenuView menuView;
+    private Climate climate;
     private int day;
 
     public MenuController(MenuView menuView) {
         this.menuView = menuView;
         this.ecosystem = new Ecosystem(new ArrayList<>());
+        this.climate = new Climate();
         this.day = 1;
     }
 
@@ -68,16 +70,26 @@ public class MenuController {
                     running = false;
                     this.ecosystem = new Ecosystem(speciesList);
                     break;
+                case 6:
+                    addBasicEcosystem(speciesList);
+                    break;
                 default:
                     menuView.showInvalidOptionMessage();
             }
         }
     }
 
+    public void addBasicEcosystem(List<Species> speciesList){
+        speciesList.add(new Plant("Пшеница", 150));
+        speciesList.add(new Herbivore("Овца", 75, 20));
+        speciesList.add(new Carnivore("Волк", 10, 30));
+        speciesList.add(new Omnivore("Медведь", 6, 40));
+    }
+
     public void addPlant(List<Species> speciesList){
         String name = menuView.getSpeciesName();
         int population = menuView.getSpeciesPopulation();
-        speciesList.add(new Plant(population));
+        speciesList.add(new Plant(name, population));
         System.out.println("Добавлен вид растения: " + name + ", популяция: " + population);
     }
 
@@ -85,7 +97,7 @@ public class MenuController {
         String name = menuView.getSpeciesName();
         int population = menuView.getSpeciesPopulation();
         int energy = menuView.getSpeciesEnergy();
-        speciesList.add(new Herbivore(population, energy));
+        speciesList.add(new Herbivore(name, population, energy));
         System.out.println("Добавлен травоядный вид: " + name + ", популяция: " + population + ", энергия: " + energy);
     }
 
@@ -93,7 +105,7 @@ public class MenuController {
         String name = menuView.getSpeciesName();
         int population = menuView.getSpeciesPopulation();
         int energy = menuView.getSpeciesEnergy();
-        speciesList.add(new Carnivore(population, energy));
+        speciesList.add(new Carnivore(name, population, energy));
         System.out.println("Добавлен плотоядный вид: " + name + ", популяция: " + population + ", энергия: " + energy);
     }
 
@@ -101,7 +113,7 @@ public class MenuController {
         String name = menuView.getSpeciesName();
         int population = menuView.getSpeciesPopulation();
         int energy = menuView.getSpeciesEnergy();
-        speciesList.add(new Omnivore(population, energy));
+        speciesList.add(new Omnivore(name, population, energy));
         System.out.println("Добавлен всеядный вид: " + name + ", популяция: " + population + ", энергия: " + energy);
     }
 
@@ -113,7 +125,7 @@ public class MenuController {
             for (int i = 0; i < days; i++, day++) {
                 ecosystem.simulateDay();
                 menuView.displayState(day, ecosystem.getSpeciesList());
-                menuView.logState(day, ecosystem.getSpeciesList());
+                menuView.logState(day, ecosystem.getSpeciesList(), climate);
             }
         }
     }
