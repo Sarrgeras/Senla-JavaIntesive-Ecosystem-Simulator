@@ -77,10 +77,10 @@ public class MenuView{
         System.out.println("-------------------------");
     }
 
-    public void logState(int day, List<Species> speciesList, Climate climate) {
+    public void logState(int day, List<Species> speciesList) {
         try (FileWriter writer = new FileWriter("ecosystem_log.txt", true)) {
+            writer.write("-------------------------\n");
             writer.write("День " + day + ":\n");
-            writer.write("Климат текущего дня: " + climate.getCurrentCondition() + '\n');
             for (Species species : speciesList) {
                 writer.write(species.getName() + ": " + species.getPopulation() + " особей, энергия: " + species.getEnergy() + "\n");
             }

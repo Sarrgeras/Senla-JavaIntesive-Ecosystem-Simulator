@@ -125,7 +125,7 @@ public class MenuController {
             for (int i = 0; i < days; i++, day++) {
                 ecosystem.simulateDay();
                 menuView.displayState(day, ecosystem.getSpeciesList());
-                menuView.logState(day, ecosystem.getSpeciesList(), climate);
+                menuView.logState(day, ecosystem.getSpeciesList());
             }
         }
     }

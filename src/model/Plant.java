@@ -7,6 +7,6 @@ public class Plant extends Species {
 
     @Override
     public void consume(Species prey) {
-        // Растения не потребляют другие виды
+
     }
 }
