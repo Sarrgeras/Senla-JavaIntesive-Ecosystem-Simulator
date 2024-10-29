@@ -92,11 +92,11 @@ public class Ecosystem {
             if (species.energy > 50) {
                 species.changePopulation(1);
                 species.changeEnergy(-30);
-                logToFile(species.getName() + " из-за переполнения энергии рождается новая особь.\n");
+                logToFile(species.getName() + " из-за переполнения энергии рождается новая особь.\r\n");
             } else if (species.energy < 0) {
                 species.changePopulation(-1);
                 species.changeEnergy(50);
-                logToFile(species.getName() + " из-за нехватки энергии особь умирает.\n");
+                logToFile(species.getName() + " из-за нехватки энергии особь умирает.\r\n");
             }
         }
     }

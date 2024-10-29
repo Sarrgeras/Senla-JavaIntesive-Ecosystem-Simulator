@@ -36,6 +36,9 @@ public class MenuController {
                     clearSimulation();
                     break;
                 case 4:
+                    menuView.clearLogFile();
+                    break;
+                case 5:
                     running = false;
                     menuView.showExitMessage();
                     break;
@@ -55,23 +58,23 @@ public class MenuController {
 
             switch (choice) {
                 case 1:
-                    addPlant(speciesList);
+                    addBasicEcosystem(speciesList);
                     break;
                 case 2:
-                    addHerbivore(speciesList);
+                    addPlant(speciesList);
                     break;
                 case 3:
-                    addCarnivore(speciesList);
+                    addHerbivore(speciesList);
                     break;
                 case 4:
-                    addOmnivore(speciesList);
+                    addCarnivore(speciesList);
                     break;
                 case 5:
-                    running = false;
-                    this.ecosystem = new Ecosystem(speciesList);
+                    addOmnivore(speciesList);
                     break;
                 case 6:
-                    addBasicEcosystem(speciesList);
+                    running = false;
+                    this.ecosystem = new Ecosystem(speciesList);
                     break;
                 default:
                     menuView.showInvalidOptionMessage();
@@ -122,7 +125,8 @@ public class MenuController {
             System.out.println("Экосистема пуста. Сначала создайте новую экосистему.");
         } else {
             int days = menuView.getEcosystemDays();
-            for (int i = 0; i < days; i++, day++) {
+            day = 1;
+            for ( int i = 0; i < days; i++, day++) {
                 ecosystem.simulateDay();
                 menuView.displayState(day, ecosystem.getSpeciesList());
                 menuView.logState(day, ecosystem.getSpeciesList());

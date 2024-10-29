@@ -4,8 +4,7 @@ import model.Climate;
 import model.Ecosystem;
 import model.Species;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,22 +12,23 @@ public class MenuView{
     private Scanner scanner = new Scanner(System.in);
 
     public void showMainMenu(){
-        System.out.println("Welcome to the Menu View");
-        System.out.println("Please select an option:");
+        System.out.println("Симулятор экосистемы");
         System.out.println("1. Создать новую экосистему");
         System.out.println("2. Запустить симуляцию экосистемы");
         System.out.println("3. Очистить экосистему");
-        System.out.println("4. Выход");
+        System.out.println("4. Очистить лог файл");
+        System.out.println("5. Выход");
         System.out.print("Выберите пункт: ");
 
     }
 
     public void showCreateEcosystemMenu(){
-        System.out.println("1.1. Добавьте ваши виды растений");
-        System.out.println("1.2. Добавьте ваши виды травоядных");
-        System.out.println("1.3. Добавьте ваши виды плотоядных");
-        System.out.println("1.4. Добавьте ваши виды всеядных");
-        System.out.println("1.5. Выйти в главное меню");
+        System.out.println("1.1. Добавить базовые виды");
+        System.out.println("1.2. Добавьте ваши виды растений");
+        System.out.println("1.3. Добавьте ваши виды травоядных");
+        System.out.println("1.4. Добавьте ваши виды плотоядных");
+        System.out.println("1.5. Добавьте ваши виды всеядных");
+        System.out.println("1.6. Выйти в главное меню");
         System.out.print("Выберите пункт: ");
 
     }
@@ -77,14 +77,23 @@ public class MenuView{
         System.out.println("-------------------------");
     }
 
+    public void clearLogFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("ecosystem_log.txt"))) {
+
+        } catch (IOException e) {
+            System.err.println("Ошибка при очистке лог-файла: " + e.getMessage());
+        }
+    }
+
     public void logState(int day, List<Species> speciesList) {
         try (FileWriter writer = new FileWriter("ecosystem_log.txt", true)) {
-            writer.write("-------------------------\n");
-            writer.write("День " + day + ":\n");
+            writer.write("-------------------------\r\n");
+            writer.write("День " + day + ":\r\r\n");
             for (Species species : speciesList) {
-                writer.write(species.getName() + ": " + species.getPopulation() + " особей, энергия: " + species.getEnergy() + "\n");
+                writer.write(species.getName() + ": " + species.getPopulation() + " особей, энергия: " + species.getEnergy() + "\r\n");
             }
-            writer.write("-------------------------\n");
+            writer.write("-------------------------\r\n");
+
         } catch (IOException e) {
             e.printStackTrace();
         }

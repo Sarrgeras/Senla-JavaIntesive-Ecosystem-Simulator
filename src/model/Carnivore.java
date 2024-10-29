@@ -31,7 +31,7 @@ public class Carnivore extends Species {
     private void logConsumption(Species prey, int foodConsumed, int energyGained) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("ecosystem_log.txt", true))) {
             writer.write(this.getName() + " съел " + foodConsumed + " особей " + prey.getName() +
-                    ", получив " + energyGained + " энергии.\n");
+                    ", получив " + energyGained + " энергии.\r\n");
         } catch (IOException e) {
             System.err.println("Ошибка записи в лог-файл: " + e.getMessage());
         }

@@ -34,13 +34,13 @@ public class Climate {
                     if (species instanceof Carnivore || species instanceof Omnivore) {
                         species.setCanFindFood(false);
                         logEffect("Высокая влажность: " + species.getName()
-                                + " теряет энергию и меньше находит пищи.\n");
+                                + " теряет энергию и меньше находит пищи.\r\n");
                     }
                     if (species instanceof Plant) {
                         int increase = Math.min(species.getPopulation(), 10);
                         species.changePopulation(increase);
                         logEffect("Высокая влажность: " + species.getName()
-                                + " получает прирост к популяции на " + increase + ".\n");
+                                + " получает прирост к популяции на " + increase + ".\r\n");
                     }
                 }
                 break;
@@ -55,7 +55,7 @@ public class Climate {
 
     private void logClimateChange() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("ecosystem_log.txt", true))) {
-            writer.write("Изменение климата: текущее состояние - " + currentCondition + "\n");
+            writer.write("Изменение климата: текущее состояние - " + currentCondition + "\r\n");
         } catch (IOException e) {
             System.err.println("Ошибка записи в лог-файл: " + e.getMessage());
         }
@@ -63,7 +63,7 @@ public class Climate {
 
     private void logEffect(String effectMessage) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("ecosystem_log.txt", true))) {
-            writer.write(effectMessage + "\n");
+            writer.write(effectMessage + "\r\n");
         } catch (IOException e) {
             System.err.println("Ошибка записи в лог-файл: " + e.getMessage());
         }
